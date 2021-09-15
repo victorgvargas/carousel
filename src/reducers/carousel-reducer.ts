@@ -1,25 +1,28 @@
-const previous = (length, current) => (current - 1 + length) % length;
+import { CarouselAction } from "../models/carousel-actions/carousel-action.model";
+import { CarouselState } from "../models/carousel-state";
 
-const skip = (length, current) => (current + 1) % length;
+const previous = (length: number, current: number) => (current - 1 + length) % length;
 
-export default function carouselReducer(state, action) {
+const skip = (length: number, current: number) => (current + 1) % length;
+
+export default function carouselReducer(state: CarouselState, action: CarouselAction): CarouselState {
   switch (action.type) {
-    case "leap":
+    case "jump":
       return Object.assign({}, state, { desired: action.desired });
-    case "skip":
+    case "next":
       return Object.assign({}, state, {
         desired: skip(action.length, state.active),
       });
-    case "previous":
+    case "prev":
       return Object.assign({}, state, {
         desired: previous(action.length, state.active),
       });
-    case "finished":
+    case "done":
       return Object.assign({}, state, {
         displacement: NaN,
         active: state.desired,
       });
-    case "dragging":
+    case "drag":
       return Object.assign({}, state, { displacement: action.displacement });
     default:
       return state;
