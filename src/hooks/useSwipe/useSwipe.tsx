@@ -273,7 +273,7 @@ function updateTransientState(
   return { ...state, ...addState };
 }
 
-export function useSwipeable(options: SwipeableProps): SwipeableHandlers {
+export function useSwipe(options: SwipeableProps): SwipeableHandlers {
   const { trackMouse } = options;
   const transientState = React.useRef({ ...initialState });
   const transientProps = React.useRef<SwipeablePropsWithDefaultOptions>({

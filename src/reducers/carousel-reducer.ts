@@ -1,9 +1,6 @@
+import { next, previous } from "../helpers/carousel-helpers";
 import { CarouselAction } from "../models/carousel-actions/carousel-action.model";
-import { CarouselState } from "../models/carousel-state";
-
-const previous = (length: number, current: number) => (current - 1 + length) % length;
-
-const skip = (length: number, current: number) => (current + 1) % length;
+import { CarouselState } from "../models/carousel-state.model";
 
 export default function carouselReducer(state: CarouselState, action: CarouselAction): CarouselState {
   switch (action.type) {
@@ -11,7 +8,7 @@ export default function carouselReducer(state: CarouselState, action: CarouselAc
       return Object.assign({}, state, { desired: action.desired });
     case "next":
       return Object.assign({}, state, {
-        desired: skip(action.length, state.active),
+        desired: next(action.length, state.active),
       });
     case "prev":
       return Object.assign({}, state, {
